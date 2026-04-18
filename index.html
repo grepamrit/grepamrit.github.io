@@ -6,11 +6,9 @@
     <title>Amrit Koirala | DevOps & AIOps</title>
     <meta name="description" content="Portfolio of Amrit Koirala, DevOps & AIOps Engineer. Expert in Docker, Kubernetes, Terraform, AWS, and Observability.">
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="crt">
@@ -20,8 +18,10 @@
             <ul class="nav-links">
                 <li><a href="#about">./about.sh</a></li>
                 <li><a href="#skills">cat skills.json</a></li>
-                <li><a href="#experience">tail -f experience.log</a></li>
-                <li><a href="#contact">ping -c 4 contact</a></li>
+                <li><a href="#experience">tail -f exp.log</a></li>
+                <li><a href="#certs">ls ./certs</a></li>
+                <li><a href="#recommendations">less recs.txt</a></li>
+                <li><a href="#contact">ping contact</a></li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -39,13 +39,13 @@
                     <div class="terminal-title">amrit@aiops: ~</div>
                 </div>
                 <div class="terminal-body">
-                    <p class="command-line"><span class="prompt">amrit@aiops:~$</span> <span class="typing-text-1">grep -rNi "absolute solution" ./infrastructure</span></p>
+                    <p class="command-line"><span class="prompt">amrit@aiops:~$</span> <span class="typing-text-1" id="hero-command"></span></p>
                     <div class="output hidden" id="hero-output">
-                        <p class="highlight-line">> Match found at ./core/engineers/amrit_koirala.yaml</p>
+                        <p class="highlight-line" id="hero-match"></p>
                         <br>
-                        <h1 class="name">Amrit Koirala</h1>
-                        <h2 class="title">DevOps & AIOps Engineer</h2>
-                        <p class="subtitle">Architecting scalable, observable, and automated infrastructure using Docker, Kubernetes, Terraform, AWS, and Pulumi.</p>
+                        <h1 class="name" id="hero-name"></h1>
+                        <h2 class="title" id="hero-title"></h2>
+                        <p class="subtitle" id="hero-subtitle"></p>
                         <div class="hero-cta mt-4">
                             <a href="#skills" class="btn primary-btn">[Execute ./deploy_skills]</a>
                             <a href="#experience" class="btn secondary-btn">[View Logs]</a>
@@ -60,10 +60,8 @@
             <div class="section-container">
                 <h2 class="section-title"><span>$</span> ./about.sh</h2>
                 <div class="about-content terminal-box">
-                    <div class="about-text">
-                        <p><span class="prompt">></span> I am a Systems Engineer pivoting into <strong>DevOps and AIOps</strong>, focused on building resilient, automated, and observable environments. Currently working at the intersection of Cybersecurity and Infrastructure Operations.</p>
-                        <p><span class="prompt">></span> My philosophy is "Grep-first". I don't just solve technical hurdles; I grep my way through complex systems to find the absolute solution. I build the visibility and automation needed to prevent issues before they occur.</p>
-                        <p><span class="prompt">></span> I am actively upskilling and expanding my toolkit with modern cloud-native technologies like <em>Docker, Kubernetes (CKA in progress), Terraform, and Pulumi</em>, driven by a passion for reducing operational toil through intelligent automation.</p>
+                    <div class="about-text" id="about-container">
+                        <!-- Injected via JS -->
                     </div>
                 </div>
             </div>
@@ -71,42 +69,9 @@
 
         <section id="skills" class="skills section-padding">
             <div class="section-container">
-                <h2 class="section-title"><span>$</span> cat skills.json | grep "expertise"</h2>
-                <div class="skills-grid">
-                    <div class="skill-category terminal-box">
-                        <h3><i class="fas fa-box-open"></i> Containerization & Orchestration</h3>
-                        <ul>
-                            <li><span class="match">Docker</span></li>
-                            <li><span class="match">Kubernetes</span> (CKA prep)</li>
-                            <li>Container Security</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category terminal-box">
-                        <h3><i class="fas fa-network-wired"></i> Infrastructure as Code</h3>
-                        <ul>
-                            <li><span class="match">Terraform</span></li>
-                            <li><span class="match">Pulumi</span></li>
-                            <li><span class="match">AWS</span> Cloud Resources</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category terminal-box">
-                        <h3><i class="fas fa-chart-line"></i> AIOps & Observability</h3>
-                        <ul>
-                            <li><span class="match">Prometheus</span></li>
-                            <li><span class="match">Grafana</span></li>
-                            <li>Proactive Alerting & SIEM</li>
-                            <li>Log Analysis pipelines</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category terminal-box">
-                        <h3><i class="fas fa-terminal"></i> Core Systems & Networking</h3>
-                        <ul>
-                            <li><span class="match">Linux</span> / Unix Administration</li>
-                            <li>Cisco Certified Network Associate (<span class="match">CCNA</span>)</li>
-                            <li><span class="match">Python</span> Scripting & Bash</li>
-                            <li>Advanced Network Protocols</li>
-                        </ul>
-                    </div>
+                <h2 class="section-title"><span>$</span> cat skills.json | jq '.expertise'</h2>
+                <div class="skills-grid" id="skills-container">
+                    <!-- Injected via JS -->
                 </div>
             </div>
         </section>
@@ -114,39 +79,26 @@
         <section id="experience" class="experience section-padding">
             <div class="section-container">
                 <h2 class="section-title"><span>$</span> tail -f experience.log</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content terminal-box">
-                            <h3>Solutions Engineer</h3>
-                            <h4>GuardSix (formerly Logpoint) <span>[2026-03-01 -> Present]</span></h4>
-                            <p>Architecting and troubleshooting data pipelines for SIEM, SOAR, and UEBA ecosystems. Driving infrastructure reliability and exploring AIOps capabilities for enhanced security monitoring.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content terminal-box">
-                            <h3>Solutions Engineer</h3>
-                            <h4>Logpoint <span>[2024-07-01 -> 2026-03-01]</span></h4>
-                            <p>Maintained deep system visibility and proactive alerting using Grafana and Prometheus. Managed cloud-based AWS resources and leveraged Pulumi for IaC workflows.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content terminal-box">
-                            <h3>Associate Solutions Engineer</h3>
-                            <h4>Logpoint <span>[2022-04-01 -> 2024-07-01]</span></h4>
-                            <p>Developed core skills in observability and infrastructure management, applying a strong "grep-first" debugging mindset.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content terminal-box">
-                            <h3>Network & System Administrator</h3>
-                            <h4>FOCUSONE Payment Solutions (MOCO) <span>[2020-11-01 -> 2022-04-01]</span></h4>
-                            <p>Built a strong foundation in System Administration and Networking. Managed critical network infrastructure, switching, routing, and Linux server environments for MOCO digital wallet operations.</p>
-                        </div>
-                    </div>
+                <div class="timeline" id="experience-container">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="certs" class="certs section-padding">
+            <div class="section-container">
+                <h2 class="section-title"><span>$</span> ls -l ./certifications/</h2>
+                <div class="cert-grid" id="certs-container">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="recommendations" class="recommendations section-padding">
+            <div class="section-container">
+                <h2 class="section-title"><span>$</span> less recommendations.txt</h2>
+                <div class="rec-grid" id="recs-container">
+                    <!-- Injected via JS -->
                 </div>
             </div>
         </section>
@@ -158,11 +110,11 @@
                     <p class="contact-desc">PING contact.amrit (127.0.0.1): 56 data bytes<br>
                     64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.042 ms</p>
                     <p class="contact-desc mt-4">Connection established. Ready to automate your infrastructure?</p>
-                    <a href="mailto:grepamrit@gmail.com" class="btn primary-btn btn-large mt-4">> send_message --to grepamrit@gmail.com</a>
+                    <a href="" id="contact-email-btn" class="btn primary-btn btn-large mt-4">> send_message --to </a>
                     
                     <div class="social-links mt-4">
-                        <a href="https://www.linkedin.com/in/grepamrit/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:grepamrit@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="" id="contact-linkedin" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="" id="contact-email" title="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
@@ -173,6 +125,8 @@
         <p>EOF. Built with a "Grep-first" mindset.</p>
     </footer>
 
+    <!-- Load Data First -->
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

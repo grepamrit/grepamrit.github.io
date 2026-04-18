@@ -1,43 +1,141 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Terminal Typewriter Effect
-    const typingText = document.querySelector('.typing-text-1');
+    
+    // --- DATA INJECTION ---
+    
+    // 1. Hero
+    const heroCmd = document.getElementById('hero-command');
     const heroOutput = document.getElementById('hero-output');
     const nextPrompt = document.getElementById('next-prompt');
     
-    // Save the original text and clear it
-    const commandText = typingText.textContent;
-    typingText.textContent = '';
+    heroCmd.textContent = PORTFOLIO_DATA.hero.command;
+    document.getElementById('hero-match').textContent = PORTFOLIO_DATA.hero.matchLine;
+    document.getElementById('hero-name').textContent = PORTFOLIO_DATA.hero.name;
+    document.getElementById('hero-title').textContent = PORTFOLIO_DATA.hero.title;
+    document.getElementById('hero-subtitle').textContent = PORTFOLIO_DATA.hero.subtitle;
+
+    // 2. About
+    const aboutContainer = document.getElementById('about-container');
+    PORTFOLIO_DATA.about.forEach(paragraph => {
+        const p = document.createElement('p');
+        p.innerHTML = `<span class="prompt">></span> ${paragraph}`;
+        aboutContainer.appendChild(p);
+    });
+
+    // 3. Skills
+    const skillsContainer = document.getElementById('skills-container');
+    PORTFOLIO_DATA.skills.forEach(skillCategory => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'skill-category terminal-box fade-up';
+        
+        let itemsHtml = '';
+        skillCategory.items.forEach(item => {
+            if(item.match) {
+                itemsHtml += `<li><span class="match">${item.name}</span></li>`;
+            } else {
+                itemsHtml += `<li>${item.name}</li>`;
+            }
+        });
+
+        categoryDiv.innerHTML = `
+            <h3><i class="${skillCategory.icon}"></i> ${skillCategory.category}</h3>
+            <ul>${itemsHtml}</ul>
+        `;
+        skillsContainer.appendChild(categoryDiv);
+    });
+
+    // 4. Experience
+    const expContainer = document.getElementById('experience-container');
+    PORTFOLIO_DATA.experience.forEach(job => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'timeline-item fade-up';
+        itemDiv.innerHTML = `
+            <div class="timeline-dot"></div>
+            <div class="timeline-content terminal-box">
+                <h3>${job.title}</h3>
+                <h4>${job.company} <span>[${job.date}]</span></h4>
+                <p>${job.description}</p>
+            </div>
+        `;
+        expContainer.appendChild(itemDiv);
+    });
+
+    // 5. Certifications
+    const certsContainer = document.getElementById('certs-container');
+    PORTFOLIO_DATA.certifications.forEach(cert => {
+        const a = document.createElement('a');
+        a.href = cert.link;
+        a.target = "_blank";
+        a.className = 'cert-card terminal-box fade-up';
+        a.innerHTML = `
+            <i class="${cert.icon} cert-icon"></i>
+            <h3>${cert.title}</h3>
+            <p>${cert.issuer}</p>
+            <span class="verify-link">[ Verify Output ]</span>
+        `;
+        certsContainer.appendChild(a);
+    });
+
+    // 6. Recommendations
+    const recsContainer = document.getElementById('recs-container');
+    PORTFOLIO_DATA.recommendations.forEach(rec => {
+        const div = document.createElement('div');
+        div.className = 'rec-card terminal-box fade-up';
+        
+        // Generate a fake IP for the AIOps SIEM vibe
+        const fakeIp = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+
+        div.innerHTML = `
+            <div class="rec-meta">
+                <span class="log-level">[EVENT: VALIDATED]</span>
+                <span class="timestamp">SRC: ${fakeIp}</span>
+            </div>
+            <div class="rec-header">
+                <h3><i class="fas fa-fingerprint"></i> <a href="${rec.link}" target="_blank">${rec.name}</a></h3>
+                <p class="rec-title">> ${rec.title}</p>
+            </div>
+            <div class="rec-payload">
+                <p class="rec-text">${rec.text}</p>
+            </div>
+        `;
+        recsContainer.appendChild(div);
+    });
+
+    // 7. Contact
+    const emailBtn = document.getElementById('contact-email-btn');
+    emailBtn.href = `mailto:${PORTFOLIO_DATA.contact.email}`;
+    emailBtn.innerHTML = `> send_message --to ${PORTFOLIO_DATA.contact.email}`;
     
+    document.getElementById('contact-linkedin').href = PORTFOLIO_DATA.contact.linkedin;
+    document.getElementById('contact-email').href = `mailto:${PORTFOLIO_DATA.contact.email}`;
+
+
+    // --- ANIMATIONS & INTERACTIONS ---
+
+    // Typewriter
     let charIndex = 0;
+    const commandText = PORTFOLIO_DATA.hero.command;
+    heroCmd.textContent = ''; // clear it before typing
     
     function typeCommand() {
         if (charIndex < commandText.length) {
-            typingText.textContent += commandText.charAt(charIndex);
+            heroCmd.textContent += commandText.charAt(charIndex);
             charIndex++;
-            // Random typing speed between 30ms and 100ms for realism
             const speed = Math.random() * 70 + 30;
             setTimeout(typeCommand, speed);
         } else {
-            // Finished typing, simulate processing delay before showing output
             setTimeout(() => {
                 heroOutput.classList.remove('hidden');
                 setTimeout(() => {
                     nextPrompt.classList.remove('hidden');
-                }, 500); // Show next prompt slightly after output
+                }, 500); 
             }, 800);
         }
     }
     
-    // Start typing after short delay
     setTimeout(typeCommand, 1000);
 
-    // 2. Scroll Reveal Animations
-    const fadeUpElements = document.querySelectorAll('.terminal-box, .section-title');
-
-    fadeUpElements.forEach(el => {
-        el.classList.add('fade-up');
-    });
-
+    // Scroll Reveal
+    const fadeUpElements = document.querySelectorAll('.fade-up, .section-title');
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -47,11 +145,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { root: null, rootMargin: '0px', threshold: 0.1 });
 
-    fadeUpElements.forEach(el => {
-        observer.observe(el);
-    });
+    // Ensure elements have fade-up class
+    document.querySelectorAll('.section-title').forEach(el => el.classList.add('fade-up'));
+    
+    // Slight delay to allow JS injection to finish before observing
+    setTimeout(() => {
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }, 100);
 
-    // 3. Smooth Scrolling
+    // Smooth Scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -67,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Mobile Menu
+    // Mobile Menu
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     
