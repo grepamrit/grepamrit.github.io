@@ -59,7 +59,26 @@ document.addEventListener('DOMContentLoaded', () => {
         expContainer.appendChild(itemDiv);
     });
 
-    // 5. Certifications
+    // 5. Research & Publications
+    const researchContainer = document.getElementById('research-container');
+    if (PORTFOLIO_DATA.publications && PORTFOLIO_DATA.publications.length > 0) {
+        PORTFOLIO_DATA.publications.forEach(pub => {
+            const a = document.createElement('a');
+            a.href = pub.link;
+            a.target = "_blank";
+            a.className = 'cert-card terminal-box fade-up';
+            a.innerHTML = `
+                <i class="${pub.icon} cert-icon" style="color: var(--accent);"></i>
+                <h3>${pub.title}</h3>
+                <p style="color: var(--accent-cyan); font-size: 0.8rem; margin-bottom: 10px;">${pub.publisher}</p>
+                <p style="text-align: left; border-top: 1px dashed var(--bg-tertiary); padding-top: 10px;">${pub.description}</p>
+                <span class="verify-link" style="display:block; margin-top:15px;">[ Read Paper ]</span>
+            `;
+            researchContainer.appendChild(a);
+        });
+    }
+
+    // 6. Certifications
     const certsContainer = document.getElementById('certs-container');
     PORTFOLIO_DATA.certifications.forEach(cert => {
         const a = document.createElement('a');
@@ -81,13 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'rec-card terminal-box fade-up';
         
-        // Generate a fake IP for the AIOps SIEM vibe
-        const fakeIp = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+        // Generate a fake Git commit hash for the DevOps vibe
+        const fakeCommit = Math.random().toString(16).substr(2, 7);
 
         div.innerHTML = `
             <div class="rec-meta">
-                <span class="log-level">[EVENT: VALIDATED]</span>
-                <span class="timestamp">SRC: ${fakeIp}</span>
+                <span class="log-level" style="color: var(--accent);">[PIPELINE: SUCCESS]</span>
+                <span class="timestamp">COMMIT: ${fakeCommit}</span>
             </div>
             <div class="rec-header">
                 <h3><i class="fas fa-fingerprint"></i> <a href="${rec.link}" target="_blank">${rec.name}</a></h3>
@@ -185,6 +204,36 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.style.border = '1px solid var(--bg-tertiary)';
             navLinks.style.padding = '20px';
             navLinks.style.width = '200px';
+        });
+    }
+
+    // Theme Toggle Logic
+    const themeCheckbox = document.getElementById('theme-toggle-checkbox');
+    const moonIcon = document.getElementById('moon-icon');
+    const sunIcon = document.getElementById('sun-icon');
+    
+    // Check saved theme
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        if(themeCheckbox) themeCheckbox.checked = true;
+        if(moonIcon) moonIcon.style.color = 'var(--text-secondary)';
+        if(sunIcon) sunIcon.style.color = 'var(--accent)';
+    }
+
+    if(themeCheckbox) {
+        themeCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.body.classList.add('light-theme');
+                localStorage.setItem('portfolio-theme', 'light');
+                moonIcon.style.color = 'var(--text-secondary)';
+                sunIcon.style.color = 'var(--accent)';
+            } else {
+                document.body.classList.remove('light-theme');
+                localStorage.setItem('portfolio-theme', 'dark');
+                moonIcon.style.color = 'var(--accent)';
+                sunIcon.style.color = 'var(--text-secondary)';
+            }
         });
     }
 });

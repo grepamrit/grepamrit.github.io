@@ -12,16 +12,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="crt">
+
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">ak<span>_</span></div>
             <ul class="nav-links">
-                <li><a href="#about">./about.sh</a></li>
-                <li><a href="#skills">cat skills.json</a></li>
-                <li><a href="#experience">tail -f exp.log</a></li>
-                <li><a href="#certs">ls ./certs</a></li>
-                <li><a href="#recommendations">less recs.txt</a></li>
-                <li><a href="#contact">ping contact</a></li>
+                <li><a href="#about">about.sh</a></li>
+                <li><a href="#skills">skills.json</a></li>
+                <li><a href="#experience">exp.log</a></li>
+                <li><a href="#research">research.md</a></li>
+                <li><a href="#certs">certs/</a></li>
+                <li><a href="#recommendations">recs.txt</a></li>
+                <li><a href="#contact">contact.sh</a></li>
+                <li style="display: flex; align-items: center; margin-left: 10px; gap: 8px;">
+                    <i class="fas fa-moon" id="moon-icon" style="color: var(--accent); font-size: 0.9rem; transition: color 0.3s;"></i>
+                    <label class="theme-switch" aria-label="Toggle Light/Dark Theme" title="Toggle Theme" style="margin-left: 0;">
+                        <input type="checkbox" id="theme-toggle-checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <i class="fas fa-sun" id="sun-icon" style="color: var(--text-secondary); font-size: 0.9rem; transition: color 0.3s;"></i>
+                </li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -80,6 +90,15 @@
             <div class="section-container">
                 <h2 class="section-title"><span>$</span> tail -f experience.log</h2>
                 <div class="timeline" id="experience-container">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="research" class="research section-padding">
+            <div class="section-container">
+                <h2 class="section-title"><span>$</span> cat research.md | grep "AI/ML"</h2>
+                <div class="cert-grid" id="research-container">
                     <!-- Injected via JS -->
                 </div>
             </div>

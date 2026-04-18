@@ -18,7 +18,6 @@ const PORTFOLIO_DATA = {
             items: [
                 { name: 'Docker', match: true },
                 { name: 'Kubernetes (CKA prep)', match: true },
-                { name: 'Container Security', match: false },
                 { name: 'Helm Deployments', match: false }
             ]
         },
@@ -28,18 +27,25 @@ const PORTFOLIO_DATA = {
             items: [
                 { name: 'Terraform', match: true },
                 { name: 'Pulumi', match: true },
-                { name: 'AWS Cloud Resources', match: true },
                 { name: 'Ansible & Automation', match: false }
             ]
         },
         {
-            category: 'CI/CD Pipeline & SRE',
-            icon: 'fas fa-robot',
+            category: 'CI/CD & Version Control',
+            icon: 'fas fa-code-branch',
             items: [
                 { name: 'GitLab CI', match: true },
                 { name: 'Jenkins', match: true },
-                { name: 'GitHub Actions', match: true },
-                { name: 'Site Reliability Engineering', match: false }
+                { name: 'GitHub Actions', match: true }
+            ]
+        },
+        {
+            category: 'Cloud & SRE',
+            icon: 'fas fa-cloud',
+            items: [
+                { name: 'AWS Cloud', match: true },
+                { name: 'Site Reliability Engineering', match: true },
+                { name: 'Python & Go Scripting', match: true }
             ]
         },
         {
@@ -47,18 +53,18 @@ const PORTFOLIO_DATA = {
             icon: 'fas fa-chart-line',
             items: [
                 { name: 'Prometheus & Grafana', match: true },
+                { name: 'ELK Stack', match: true },
                 { name: 'Predictive Alerting', match: true },
-                { name: 'Anomaly Detection', match: false },
-                { name: 'ELK Stack / SIEM Log Analysis', match: false }
+                { name: 'Anomaly Detection', match: false }
             ]
         },
         {
-            category: 'Core Systems & Network',
-            icon: 'fas fa-terminal',
+            category: 'Security & Core Systems',
+            icon: 'fas fa-shield-alt',
             items: [
+                { name: 'SIEM, SOAR & UEBA', match: true },
                 { name: 'Linux / Unix Admin', match: true },
-                { name: 'CCNA (Cisco Networking)', match: true },
-                { name: 'Python & Go Scripting', match: true },
+                { name: 'Networking (CCNA)', match: true },
                 { name: 'Bash / Shell', match: false }
             ]
         }
@@ -114,6 +120,15 @@ const PORTFOLIO_DATA = {
             issuer: 'LinkedIn Learning',
             icon: 'fab fa-linux',
             link: 'https://www.linkedin.com/learning/certificates/5ca8e265aa7fd6544432eb7e7f12fcce80330f359e737b8c97d22e0658222b8d'
+        }
+    ],
+    publications: [
+        {
+            title: 'A Deep Neural Network Solution For Malignant Melanoma Detection',
+            publisher: 'International Journal of Advanced Research And Publications',
+            icon: 'fas fa-brain',
+            link: 'https://www.researchgate.net/publication/337649359_A_Deep_Neural_Network_Solution_For_Malignant_Melanoma_Detection_International_Journal_of_Advanced_Research_And_Publications',
+            description: 'Published research on applying Deep Learning and Neural Networks for medical image classification. This foundational AI/ML experience drives my current passion for AIOps and MLOps infrastructure.'
         }
     ],
     recommendations: [
